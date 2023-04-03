@@ -1,0 +1,18 @@
+﻿
+
+
+    <h3>Burası; Home/Action view'ı'</h3>
+    <p>Hoşgeldin @ViewBag.Ad </p>
+    <p>Bugünün tarihi @ViewBag.Tarih.ToLongDateString()</p>
+    @if (ViewBag.Tarih.Month == 4)
+    {
+        <p>OOO bahar gelmiş :)</p>
+    }
+
+    @foreach (dynamic item in ViewBag.Urunler)
+    {
+        <p>@item</p>
+    }
+
+    <a asp-controller="Home" asp-action="Register" class="btn btn-success">Kayıt ol</a> 
+

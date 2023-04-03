@@ -1,0 +1,15 @@
+﻿@model UserModel
+
+
+
+<form method="post">
+    <input class="form-control" asp-for="FirstName" placeholder="Adınız" />
+    <span class="form-control alert alert-danger" asp-validation-for="FirstName"></span>
+    <input class="form-control" asp-for="LastName" placeholder="Soyadınız" />
+    <input class="form-control" asp-for="Email" placeholder="Mail adresi" />
+    <input class="form-control" asp-for="BirthDate" />
+    <input class="form-control" asp-for="IsActive" />
+    <textarea class="form-control" asp-for="Comment" placeholder="Yorumlarınız">
+        </textarea>
+    <button type="submit" class="btn btn-warning">Kaydet</button>
+</form>
