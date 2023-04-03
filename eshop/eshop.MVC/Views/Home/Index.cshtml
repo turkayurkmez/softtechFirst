@@ -1,0 +1,19 @@
+﻿@model IEnumerable<eshop.MVC.Services.InsideProduct>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>@item.Name</h3>
+                    <p>@item.Description</p>
+                    <p>@item.Price.ToString("C0")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
