@@ -15,14 +15,15 @@ namespace eshop.MVC.Controllers
             this.productService = productService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId = null)
         {
             //Bu controller, ürün verisiyle çalışmak zorunda.
             //Ürün verisi olmadan bu controller olmaz.
             //Ürün verisini sağlayan nesne, controller nesnesinin bağımlılığıdır.
 
             // InsideProductService productService = new InsideProductService();
-            var products = productService.GetProducts();
+            var products = categoryId.HasValue ? productService.GetProductsByCategory(categoryId.Value) :
+                                                 productService.GetProducts();
 
             return View(products);
         }

@@ -7,15 +7,26 @@
     @foreach (var item in Model)
     {
         <div class="col-4">
-            <div class="card">
-                <img src="@item.ImageUrl" />
-                <div class="card-body">
-
-                    <h3>@item.Name</h3>
-                    <p>@item.Description</p>
-                    <p>@item.Price?.ToString("C0")</p>
-                </div>
-            </div>
+            <partial name="_ProductCard" model="item" />
         </div>
     }
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.basket').on('click', function () {
+                let id = $(this).data('id');
+                $.ajax({
+                    url:'/ProductCard/AddProduct/'+id,
+                    success: function(data){
+                        console.log(data);
+                    },
+                    error: function(err){
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    </script>
+}

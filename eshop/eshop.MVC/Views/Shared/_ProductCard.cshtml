@@ -1,0 +1,11 @@
+﻿@model Product
+
+<div class="card">
+    <img src="@Model.ImageUrl" />
+    <div class="card-body">
+        <h3>@Model.Name</h3>
+        <p>@Model.Description</p>
+        <p>@Model.Price?.ToString("C0")</p>
+        <button class="btn btn-success basket" data-id="@Model.Id">Ekle</button>
+    </div>
+</div>

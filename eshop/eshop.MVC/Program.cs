@@ -5,6 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddSession();
+//builder.Services.AddCookiePolicy()
 
 
 var app = builder.Build();
@@ -19,13 +23,21 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseCookiePolicy();
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
 
+
+app.MapControllerRoute(name: "categoryFilter",
+                       pattern: "Kategori/{categoryId?}",
+                       defaults: new { controller = "Home", action = "Index" });
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
 app.Run();

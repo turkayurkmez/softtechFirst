@@ -4,7 +4,12 @@ namespace eshop.Application.Services
 {
     public interface IProductService
     {
-        public IList<Product> GetProducts();
-        public Task<IList<Product>> GetProductsAsync();
+        IList<Product> GetProducts();
+        Task<IList<Product>> GetProductsAsync();
+        IList<Product> GetProductsByCategory(int value);
+        Task<IList<Product>> GetProductsByCategoryAsync(int categoryId);
+
+        Product GetProduct(int productId);
+        Task<Product> GetProductAsync(int productId);
     }
 }
