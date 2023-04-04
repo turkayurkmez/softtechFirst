@@ -1,4 +1,4 @@
-﻿@model IEnumerable<eshop.MVC.Services.InsideProduct>
+﻿@model IEnumerable<Product>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -8,10 +8,12 @@
     {
         <div class="col-4">
             <div class="card">
+                <img src="@item.ImageUrl" />
                 <div class="card-body">
+
                     <h3>@item.Name</h3>
                     <p>@item.Description</p>
-                    <p>@item.Price.ToString("C0")</p>
+                    <p>@item.Price?.ToString("C0")</p>
                 </div>
             </div>
         </div>

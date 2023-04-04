@@ -1,5 +1,5 @@
-﻿using eshop.MVC.Models;
-using eshop.MVC.Services;
+﻿using eshop.Application.Services;
+using eshop.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,10 +8,11 @@ namespace eshop.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductService productService;
+        public HomeController(ILogger<HomeController> logger, IProductService productService)
         {
             _logger = logger;
+            this.productService = productService;
         }
 
         public IActionResult Index()
@@ -20,7 +21,7 @@ namespace eshop.MVC.Controllers
             //Ürün verisi olmadan bu controller olmaz.
             //Ürün verisini sağlayan nesne, controller nesnesinin bağımlılığıdır.
 
-            InsideProductService productService = new InsideProductService();
+            // InsideProductService productService = new InsideProductService();
             var products = productService.GetProducts();
 
             return View(products);
