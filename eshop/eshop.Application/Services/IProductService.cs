@@ -11,5 +11,7 @@ namespace eshop.Application.Services
 
         Product GetProduct(int productId);
         Task<Product> GetProductAsync(int productId);
+        void CreateProduct(Product product);
+        void Update(Product product);
     }
 }

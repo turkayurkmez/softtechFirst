@@ -37,7 +37,7 @@ namespace eshop.MVC.Controllers
             cardCollection.AddProduct(productItem);
             saveCollectionToSession(cardCollection);
 
-            return Json(new { message = $"{id} değeri, sunucuya ulaştı" });
+            return Json(new { message = $"{product.Name} ürünü, sepete eklendi" });
         }
 
 

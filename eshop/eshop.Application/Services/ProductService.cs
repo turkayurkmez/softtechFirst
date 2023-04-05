@@ -1,24 +1,28 @@
 ﻿using eshop.Entities;
+using eshop.Infrastucture.Repositories;
 
 namespace eshop.Application.Services
 {
     public class ProductService : IProductService
     {
-        private List<Product> _products;
-        public ProductService()
-        {
-            _products = new List<Product>()
-            {
-                new(){ Id=1, Name="Klavye", Price=2000, Description="Ergonomik bluetooth klavye", Stocks=100, ImageUrl="https://cdn.dsmcdn.com/ty740/product/media/images/20230220/15/285115501/31980046/1/1_org.jpg", CategoryId=1},
-                new(){ Id=2, Name="Mouse", Price=500, Description="Ergonomik bluetooth mouse", Stocks=100, ImageUrl="https://cdn.dsmcdn.com/ty740/product/media/images/20230220/15/285115501/31980046/1/1_org.jpg", CategoryId=1},
-                new(){ Id=3, Name="Kulaklık", Price=1000, Description="Ergonomik bluetooth kulaklık", Stocks=100, ImageUrl = "https://cdn.dsmcdn.com/ty740/product/media/images/20230220/15/285115501/31980046/1/1_org.jpg", CategoryId = 2},
 
-            };
+        private readonly IProductRepository productRepository;
+
+        public ProductService(IProductRepository productRepository)
+        {
+            this.productRepository = productRepository;
+        }
+
+
+
+        public void CreateProduct(Product product)
+        {
+            productRepository.Add(product);
         }
 
         public Product GetProduct(int productId)
         {
-            return _products.FirstOrDefault(p => p.Id == productId);
+            return productRepository.GetItemById(productId);
         }
 
         public Task<Product> GetProductAsync(int productId)
@@ -28,7 +32,7 @@ namespace eshop.Application.Services
 
         public IList<Product> GetProducts()
         {
-            return _products;
+            return productRepository.GetAllItems(); ;
         }
 
         public Task<IList<Product>> GetProductsAsync()
@@ -38,12 +42,17 @@ namespace eshop.Application.Services
 
         public IList<Product> GetProductsByCategory(int value)
         {
-            return _products.Where(pr => pr.CategoryId == value).ToList();
+            return productRepository.GetProductsByCategoryId(value);
         }
 
         public Task<IList<Product>> GetProductsByCategoryAsync(int categoryId)
         {
             throw new NotImplementedException();
+        }
+
+        public void Update(Product product)
+        {
+            productRepository.Update(product);
         }
     }
 }

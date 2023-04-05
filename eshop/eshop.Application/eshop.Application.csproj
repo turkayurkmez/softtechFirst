@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eshop.Entities\eshop.Entities.csproj" />
+    <ProjectReference Include="..\eshop.Infrastucture\eshop.Infrastucture.csproj" />
   </ItemGroup>
 
 </Project>

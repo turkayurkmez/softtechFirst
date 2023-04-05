@@ -12,6 +12,21 @@
     }
 </div>
 
+
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">           
+            <strong class="me-auto">Teşekkürler!</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            <span id="message"></span>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
         $(document).ready(function () {
@@ -20,7 +35,11 @@
                 $.ajax({
                     url:'/ProductCard/AddProduct/'+id,
                     success: function(data){
-                        console.log(data);
+                        //alert(data.message);
+                       $('#message').text(data.message);
+                        const toastLiveExample = document.getElementById('liveToast')
+                        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                        toastBootstrap.show();
                     },
                     error: function(err){
                         console.log(err);

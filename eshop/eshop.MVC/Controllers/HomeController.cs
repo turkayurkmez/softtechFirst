@@ -25,6 +25,7 @@ namespace eshop.MVC.Controllers
             var products = categoryId.HasValue ? productService.GetProductsByCategory(categoryId.Value) :
                                                  productService.GetProducts();
 
+            //return Part
             return View(products);
         }
 

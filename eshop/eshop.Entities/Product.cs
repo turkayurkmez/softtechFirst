@@ -1,14 +1,19 @@
-﻿namespace eshop.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace eshop.Entities
 {
-    public class Product
+    public class Product : IEntity
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Ürün adını belirtmeyi unuttunuz!")]
         public string Name { get; set; }
         public string? Description { get; set; }
         public double? Price { get; set; }
         public int? Stocks { get; set; }
-        public string ImageUrl { get; set; }
-        public int CategoryId { get; set; }
+        public string? ImageUrl { get; set; }
+        public int? CategoryId { get; set; }
+
+        public Category? Category { get; set; }
 
     }
 }

@@ -23,7 +23,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductCard" asp-action="Index">Sepetim (3)</a>
+                           @Component.InvokeAsync("Notication").Result
                         </li>
                     </ul>
                 </div>
@@ -33,7 +33,7 @@
     <div class="container">
         <div class="row">
             <div class="col-2">
-                @await Component.InvokeAsync("Menu")
+                @Component.InvokeAsync("Menu").Result
             </div>
             <div class="col-10">
                 <main role="main" class="pb-3">
