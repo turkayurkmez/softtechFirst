@@ -1,10 +1,12 @@
 ﻿using eshop.Application.Services;
 using eshop.MVC.ExtensionMerhods;
 using eshop.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eshop.MVC.Controllers
 {
+    [Authorize]
     public class ProductCardController : Controller
     {
 
