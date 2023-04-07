@@ -48,7 +48,7 @@ namespace eshop.Infrastucture.Repositories
 
         public async Task<IList<Product>> GetAllItemsAsync()
         {
-            return await dbContext.Products.ToListAsync();
+            return await dbContext.Products.Include(p => p.Category).ToListAsync();
         }
 
         public Product GetItemById(int id)
@@ -80,6 +80,11 @@ namespace eshop.Infrastucture.Repositories
         {
             return await dbContext.Products.Where(x => x.Name.Contains(name)).ToListAsync();
 
+        }
+
+        public async Task<bool> IsItemExistsAsync(int id)
+        {
+            return await dbContext.Products.AnyAsync(p => p.Id == id);
         }
 
         public void Update(Product entity)

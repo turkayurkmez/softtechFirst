@@ -53,6 +53,11 @@ namespace eshop.Infrastucture.Repositories
             throw new NotImplementedException();
         }
 
+        public Task<bool> IsItemExistsAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Category entity)
         {
             throw new NotImplementedException();

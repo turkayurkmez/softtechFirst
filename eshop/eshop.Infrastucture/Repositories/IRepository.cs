@@ -16,5 +16,7 @@ namespace eshop.Infrastucture.Repositories
 
         T GetItemById(int id);
         Task<T> GetItemByIdAsync(int id);
+
+        Task<bool> IsItemExistsAsync(int id);
     }
 }
