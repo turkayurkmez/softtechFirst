@@ -1,26 +1,43 @@
-using eshop.Application.Services;
-using eshop.Infrastucture.Data;
-using eshop.Infrastucture.Repositories;
+using eshop.MVC.ExtensionMerhods;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddControllersWithViews()
+                .AddMvcOptions(option =>
+                {
+                    option.Filters.Add(new ResponseCacheAttribute { Duration = 300, Location = ResponseCacheLocation.Client });
+                });
 
-builder.Services.AddScoped<IProductRepository, EFProductRepository>();
-builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
-
-builder.Services.AddSession();
-//builder.Services.AddCookiePolicy()
 
 var connectionString = builder.Configuration.GetConnectionString("db");
-builder.Services.AddDbContext<EshopDbContext>(opt => opt.UseSqlServer(connectionString));
+
+builder.Services.AddIoCForThisProject(connectionString);
+
+builder.Services.AddSession();
+
+//builder.Services.AddCookiePolicy()
 
 
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/Kullanici/Giris";
+                    option.ReturnUrlParameter = "nerelereGidem";
+                    option.AccessDeniedPath = "/Kullanici/Yasak";
+                });
+
+
+builder.Services.AddResponseCaching();
 var app = builder.Build();
+
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -36,7 +53,12 @@ app.UseCookiePolicy();
 app.UseSession();
 app.UseRouting();
 
+app.UseResponseCaching();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 
 app.MapControllerRoute(name: "categoryFilter",

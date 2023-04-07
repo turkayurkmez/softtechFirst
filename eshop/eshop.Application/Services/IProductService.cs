@@ -12,6 +12,12 @@ namespace eshop.Application.Services
         Product GetProduct(int productId);
         Task<Product> GetProductAsync(int productId);
         void CreateProduct(Product product);
+        Task CreateProductAsync(Product product);
+
         void Update(Product product);
+        Task UpdateAsync(Product product);
+
+        void DeleteProduct(int productId);
+        Task DeleteProductAsync(int productId);
     }
 }

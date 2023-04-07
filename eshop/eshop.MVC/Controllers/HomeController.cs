@@ -15,6 +15,8 @@ namespace eshop.MVC.Controllers
             this.productService = productService;
         }
 
+        [ResponseCache(Duration = 300, Location = ResponseCacheLocation.Client)]
+        [HttpGet]
         public IActionResult Index(int? categoryId = null)
         {
             //Bu controller, ürün verisiyle çalışmak zorunda.
@@ -26,6 +28,7 @@ namespace eshop.MVC.Controllers
                                                  productService.GetProducts();
 
             //return Part
+            ViewBag.Current = DateTime.Now.ToString();
             return View(products);
         }
 

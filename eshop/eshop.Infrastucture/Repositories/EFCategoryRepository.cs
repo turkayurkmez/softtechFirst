@@ -1,5 +1,6 @@
 ﻿using eshop.Entities;
 using eshop.Infrastucture.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace eshop.Infrastucture.Repositories
 {
@@ -37,9 +38,9 @@ namespace eshop.Infrastucture.Repositories
             return dbContext.Categories.ToList();
         }
 
-        public Task<IList<Category>> GetAllItemsAsync()
+        public async Task<IList<Category>> GetAllItemsAsync()
         {
-            throw new NotImplementedException();
+            return await dbContext.Categories.ToListAsync();
         }
 
         public Category GetItemById(int id)

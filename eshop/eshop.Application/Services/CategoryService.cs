@@ -17,9 +17,9 @@ namespace eshop.Application.Services
             return categoryRepository.GetAllItems();
         }
 
-        public Task<IEnumerable<Category>> GetCategoriesAsync()
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
-            throw new NotImplementedException();
+            return await categoryRepository.GetAllItemsAsync();
         }
     }
 }

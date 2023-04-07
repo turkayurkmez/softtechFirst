@@ -1,5 +1,6 @@
 ﻿using eshop.Entities;
 using eshop.Infrastucture.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace eshop.Infrastucture.Repositories
 {
@@ -19,19 +20,25 @@ namespace eshop.Infrastucture.Repositories
             dbContext.SaveChanges();
         }
 
-        public Task AddAsync(Product entity)
+        public async Task AddAsync(Product entity)
         {
-            throw new NotImplementedException();
+            await dbContext.Products.AddAsync(entity);
+            await dbContext.SaveChangesAsync();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var entity = dbContext.Products.FirstOrDefault(p => p.Id == id);
+            dbContext.Products.Remove(entity);
+            dbContext.SaveChanges();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+            dbContext.Products.Remove(entity);
+            await dbContext.SaveChangesAsync();
+
         }
 
         public IList<Product> GetAllItems()
@@ -39,9 +46,9 @@ namespace eshop.Infrastucture.Repositories
             return dbContext.Products.ToList();
         }
 
-        public Task<IList<Product>> GetAllItemsAsync()
+        public async Task<IList<Product>> GetAllItemsAsync()
         {
-            throw new NotImplementedException();
+            return await dbContext.Products.ToListAsync();
         }
 
         public Product GetItemById(int id)
@@ -49,9 +56,9 @@ namespace eshop.Infrastucture.Repositories
             return dbContext.Products.FirstOrDefault(p => p.Id == id);
         }
 
-        public Task<Product> GetItemByIdAsync(int id)
+        public async Task<Product> GetItemByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public IList<Product> GetProductsByCategoryId(int categoryId)
@@ -59,19 +66,20 @@ namespace eshop.Infrastucture.Repositories
             return dbContext.Products.Where(p => p.CategoryId == categoryId).ToList();
         }
 
-        public Task<IList<Product>> GetProductsByCategoryIdAsync(int categoryId)
+        public async Task<IList<Product>> GetProductsByCategoryIdAsync(int categoryId)
         {
-            throw new NotImplementedException();
+            return await dbContext.Products.Where(p => p.CategoryId == categoryId).ToListAsync();
         }
 
         public IEnumerable<Product> GetProductsByName(string name)
         {
-            throw new NotImplementedException();
+            return dbContext.Products.Where(x => x.Name.Contains(name)).ToList();
         }
 
-        public Task<IEnumerable<Product>> GetProductsByNameAsync()
+        public async Task<IEnumerable<Product>> GetProductsByNameAsync(string name)
         {
-            throw new NotImplementedException();
+            return await dbContext.Products.Where(x => x.Name.Contains(name)).ToListAsync();
+
         }
 
         public void Update(Product entity)
@@ -82,9 +90,11 @@ namespace eshop.Infrastucture.Repositories
 
         }
 
-        public Task UpdateAsync(Product entity)
+        public async Task UpdateAsync(Product entity)
         {
-            throw new NotImplementedException();
+            dbContext.Products.Update(entity);
+            await dbContext.SaveChangesAsync();
+
         }
     }
 }

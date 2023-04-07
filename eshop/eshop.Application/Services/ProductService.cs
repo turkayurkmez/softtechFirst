@@ -20,14 +20,29 @@ namespace eshop.Application.Services
             productRepository.Add(product);
         }
 
+        public async Task CreateProductAsync(Product product)
+        {
+            await productRepository.AddAsync(product);
+        }
+
+        public void DeleteProduct(int productId)
+        {
+            productRepository.Delete(productId);
+        }
+
+        public async Task DeleteProductAsync(int productId)
+        {
+            await productRepository.DeleteAsync(productId);
+        }
+
         public Product GetProduct(int productId)
         {
             return productRepository.GetItemById(productId);
         }
 
-        public Task<Product> GetProductAsync(int productId)
+        public async Task<Product> GetProductAsync(int productId)
         {
-            throw new NotImplementedException();
+            return await productRepository.GetItemByIdAsync(productId);
         }
 
         public IList<Product> GetProducts()
@@ -35,9 +50,9 @@ namespace eshop.Application.Services
             return productRepository.GetAllItems(); ;
         }
 
-        public Task<IList<Product>> GetProductsAsync()
+        public async Task<IList<Product>> GetProductsAsync()
         {
-            throw new NotImplementedException();
+            return await productRepository.GetAllItemsAsync();
         }
 
         public IList<Product> GetProductsByCategory(int value)
@@ -45,14 +60,19 @@ namespace eshop.Application.Services
             return productRepository.GetProductsByCategoryId(value);
         }
 
-        public Task<IList<Product>> GetProductsByCategoryAsync(int categoryId)
+        public async Task<IList<Product>> GetProductsByCategoryAsync(int categoryId)
         {
-            throw new NotImplementedException();
+            return await productRepository.GetProductsByCategoryIdAsync(categoryId);
         }
 
         public void Update(Product product)
         {
             productRepository.Update(product);
+        }
+
+        public async Task UpdateAsync(Product product)
+        {
+            await productRepository.UpdateAsync(product);
         }
     }
 }
